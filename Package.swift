@@ -27,7 +27,8 @@ let package = Package(
         ),
         .target(
             name: "DesignSystem",
-            dependencies: ["Domain"]
+            dependencies: ["Domain"],
+            resources: [.process("Resources")]
         ),
         .target(
             name: "Policy",
