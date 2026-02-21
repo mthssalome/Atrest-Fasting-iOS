@@ -1,70 +1,168 @@
-"timer.title" = "Timer";
-"timer.subtitle" = "Fasting and milestones stay factual.";
-"timer.state.label" = "State";
-"timer.milestone.label" = "Milestone";
-"timer.elapsed.label" = "Elapsed";
-"timer.elapsed.format" = "%.1f hours";
-"timer.primary.start" = "Start";
-"timer.primary.stop" = "Stop";
-"timer.abandon" = "Abandon";
-"timer.status.idle" = "Idle";
-"timer.status.active" = "Fasting";
-"timer.status.completed" = "Completed";
-"timer.status.abandoned" = "Abandoned";
-"timer.milestone.none" = "No milestone";
-"timer.milestone.digestiveCompletion" = "Digestive completion";
-"timer.milestone.earlyMetabolicShift" = "Early metabolic shift";
-"timer.milestone.increasingMetabolicFlexibility" = "Increasing metabolic flexibility";
-"timer.milestone.deeperFastingState" = "Deeper fasting state";
-"timer.milestone.extendedFasting" = "Extended fasting";
+/* ==========================================================
+   Atrest — Localizable.strings
+   
+   Voice: quiet companion. See doctrine/02-language.md.
+   Every string traced to a doctrine file or screen spec.
+   ========================================================== */
 
-"forest.title" = "Forest";
-"forest.subtitle" = "Memories of completed fasts appear as steady forms. Locked items stay atmospheric.";
-"forest.tree.locked" = "Locked tree";
-"forest.tree.unlocked" = "Tree memory";
-"forest.tree.hint" = "Represents a completed fast";
+
+/* ----------------------------------------------------------
+   Timer Screen  (doctrine: 02-language, 03-milestones, 06-apple-ux)
+   ---------------------------------------------------------- */
+
+/* Idle state — the user has not started a fast */
+"timer.idle.prompt" = "When you're ready.";
+
+/* Active state — shown alongside elapsed time */
+"timer.active.label" = "Fasting";
+
+/* Completed state — shown briefly after stopping */
+"timer.completed.label" = "Complete.";
+
+/* Abandoned state — shown after abandoning */
+"timer.abandoned.label" = "Ended early.";
+
+/* Elapsed time format — hours and minutes */
+"timer.elapsed.format" = "%dh %dm";
+
+/* Action buttons */
+"timer.action.begin" = "Begin";
+"timer.action.end" = "End fast";
+"timer.action.abandon" = "End early";
+
+
+/* ----------------------------------------------------------
+   Biological Milestones  (doctrine: 03-milestones)
+   Companion tone. Probabilistic. No praise. No vanity.
+   ---------------------------------------------------------- */
+
+"milestone.none" = "";
+
+"milestone.digestionCompleting" = "Your last meal is still being processed. Nothing has shifted yet.";
+
+"milestone.beginningToShift" = "Your body has finished digesting and is beginning to draw on its own reserves.";
+
+"milestone.metabolicTransition" = "You may start to feel the fast more here. Your body is shifting between energy sources — a natural and temporary adjustment.";
+
+"milestone.deeperRhythm" = "Your body has settled into a deeper rhythm, drawing more on stored energy. Some people feel clearer here; others feel the challenge more.";
+
+"milestone.extendedFast" = "You are well into an extended fast. Your body is working with what it has. There is nothing to do but be here.";
+
+"milestone.prolongedFast" = "This is a long fast. Your body has found its own pace. Be attentive to how you feel.";
+
+
+/* ----------------------------------------------------------
+   Forest Screen  (doctrine: 04-tree-forest, 06-apple-ux)
+   ---------------------------------------------------------- */
+
+/* Accessibility labels — no visible titles on the forest canvas */
+"forest.a11y.tree.complete" = "A tree from a completed fast";
+"forest.a11y.tree.incomplete" = "A tree from an unfinished fast";
+"forest.a11y.star" = "A star in the sky";
+"forest.a11y.canvas" = "Your forest — every tree is a fast you've completed";
+
+
+/* ----------------------------------------------------------
+   Calendar Screen  (doctrine: 06-apple-ux screen spec)
+   ---------------------------------------------------------- */
 
 "calendar.title" = "Calendar";
-"calendar.entries" = "Entries";
-"calendar.locked" = "Locked";
-"calendar.inspectable" = "Inspectable";
-"calendar.locked.label" = "Locked silhouette";
+
+/* Detail overlay when tapping a day dot */
+"calendar.detail.duration" = "%dh %dm";
+"calendar.detail.completed" = "Completed";
+"calendar.detail.incomplete" = "Ended early";
+
+
+/* ----------------------------------------------------------
+   Settings Screen  (doctrine: 06-apple-ux screen spec)
+   ---------------------------------------------------------- */
 
 "settings.title" = "Settings";
-"settings.section.subscriptions" = "Subscriptions";
-"settings.section.data" = "Data portability";
+
+/* Fasting section */
+"settings.section.fasting" = "Fasting";
+"settings.fasting.target" = "Target duration";
+"settings.fasting.target.note" = "This is a reference, not a goal. Your fast is yours regardless.";
+
+/* Hydration section */
+"settings.section.hydration" = "Hydration";
+"settings.hydration.unit" = "Unit";
+"settings.hydration.unit.ml" = "ml";
+"settings.hydration.unit.oz" = "fl oz";
+"settings.hydration.quickAdd" = "Quick-add amount";
+
+/* Premium section (visible to free-tier users post-trial only) */
+"settings.section.premium" = "Premium";
+"settings.premium.go" = "Go premium";
+
+/* Data section */
+"settings.section.data" = "Your data";
 "settings.export" = "Export data";
 "settings.import" = "Import data";
-"settings.import.confirmation" = "Imports require preview and confirmation before applying.";
+"settings.import.note" = "Imports are previewed before applying.";
 "settings.import.success" = "Import applied.";
-"settings.manage.subscriptions" = "Manage subscriptions";
-"settings.data.explanation" = "Your data is stored locally on this device. Deleting the app removes it unless you export a backup.";
-"tab.timer" = "Timer";
-"tab.forest" = "Forest";
-"tab.calendar" = "Calendar";
-"tab.water" = "Water";
-"tab.settings" = "Settings";
-"paywall.title" = "Premium access";
-"paywall.subtitle" = "Support the app and unlock full history, forest, and calendar access.";
-"paywall.annual" = "Annual";
-"paywall.lifetime" = "Lifetime";
-"paywall.restore" = "Restore purchases";
-"paywall.privacy" = "Purchases are handled by Apple. No accounts or tracking.";
-"paywall.local" = "Data stays on-device. Export before uninstalling.";
-"paywall.renewal" = "Annual renews each year at the displayed price. Lifetime is one-time.";
-"paywall.terms" = "Terms of Service";
-"paywall.privacy.link" = "Privacy Policy";
-"paywall.terms.url" = "https://atrest.app/terms";
-"paywall.privacy.url" = "https://atrest.app/privacy";
-"paywall.select" = "Select";
-"paywall.status.idle" = "Ready";
-"paywall.status.purchasing" = "Processing…";
-"paywall.status.restoring" = "Restoring…";
-"paywall.status.error" = "Could not complete.";
-"paywall.status.success" = "Premium unlocked.";
-"paywall.trial.notice" = "You have 1 more complimentary fast before reverting to free.";
+"settings.data.explanation" = "Your data is stored only on this device.";
 
-"water.title" = "Water";
-"water.subtitle" = "Track hydration without any paywall.";
-"water.today" = "Today";
-"water.add250" = "+250 ml";
+/* Account section (visible to premium users) */
+"settings.section.account" = "Account";
+"settings.manage.subscription" = "Manage subscription";
+"settings.restore" = "Restore purchases";
+
+/* Legal section */
+"settings.section.legal" = "Legal";
+"settings.terms" = "Terms of Service";
+"settings.privacy" = "Privacy Policy";
+"settings.terms.url" = "https://atrest.app/terms";
+"settings.privacy.url" = "https://atrest.app/privacy";
+
+
+/* ----------------------------------------------------------
+   Paywall / Premium Surface  (doctrine: 05-monetization-ethics)
+   No urgency. No guilt. No feature-gate language.
+   ---------------------------------------------------------- */
+
+"paywall.values" = "Atrest was built with care — no urgency, no guilt, no tricks. Supporting it means it stays that way.";
+"paywall.description" = "Keep the tree. Keep the forest. Keep your full history.";
+"paywall.annual" = "$29 / year";
+"paywall.lifetime" = "$79 once, forever";
+"paywall.restore" = "Restore purchases";
+"paywall.apple.note" = "Purchases are handled by Apple. No accounts or tracking.";
+"paywall.renewal.note" = "Annual renews each year at the displayed price. Cancel anytime.";
+"paywall.terms" = "Terms of Service";
+"paywall.privacy" = "Privacy Policy";
+
+/* Purchase flow status */
+"paywall.status.processing" = "Processing…";
+"paywall.status.restoring" = "Restoring…";
+"paywall.status.error" = "Something went wrong. Please try again.";
+"paywall.status.success" = "Welcome back to the full experience.";
+
+
+/* ----------------------------------------------------------
+   Transition Moment  (doctrine: 05-monetization-ethics, Phase 2)
+   Shown once, after the 10th completed fast.
+   ---------------------------------------------------------- */
+
+"transition.body" = "You've completed 10 fasts with Atrest.\n\nThe timer, milestones, water tracking, and your recent history are always yours — no charge, no conditions, no expiry.\n\nThe tree, the forest, and your full history are part of the deeper experience. If Atrest has been a good companion to your practice, you can keep it all.";
+"transition.continue" = "Continue with Atrest";
+"transition.later" = "Maybe later";
+
+
+/* ----------------------------------------------------------
+   Water (Inline Element)  (doctrine: 06-apple-ux screen spec)
+   ---------------------------------------------------------- */
+
+"water.today.total" = "Today: %@";
+"water.add" = "+%@";
+"water.a11y.drop" = "Water intake today";
+
+
+/* ----------------------------------------------------------
+   Accessibility — Navigation Glyphs  (doctrine: 06-apple-ux nav)
+   ---------------------------------------------------------- */
+
+"nav.a11y.escape" = "Menu";
+"nav.a11y.forest" = "Forest";
+"nav.a11y.calendar" = "Calendar";
+"nav.a11y.settings" = "Settings";
