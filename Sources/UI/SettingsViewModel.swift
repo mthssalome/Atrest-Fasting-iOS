@@ -1,6 +1,7 @@
 import Foundation
 import Data
 import Domain
+import SwiftUI
 
 public enum SettingsError: Error, Equatable {
     case unavailable
@@ -10,6 +11,9 @@ public enum SettingsError: Error, Equatable {
 public final class SettingsViewModel: ObservableObject {
     @Published public private(set) var importNote: String?
     @Published public private(set) var statusMessage: String?
+    @AppStorage("atrest.fasting.targetHours") public var targetHours: Double = 16.0
+    @AppStorage("atrest.hydration.unit") public var hydrationUnitRaw: String = HydrationUnit.milliliters.rawValue
+    @AppStorage("atrest.hydration.quickAdd") public var quickAddAmount: Int = 250
 
     private let sessionStore: SessionStore?
     private let exportService: DataExportService
@@ -19,8 +23,13 @@ public final class SettingsViewModel: ObservableObject {
     /// Called when persisted sessions change (e.g., import merge).
     public var onStoreUpdate: ((SessionStoreState) -> Void)?
 
+    public var hydrationUnit: HydrationUnit {
+        get { HydrationUnit(rawValue: hydrationUnitRaw) ?? .milliliters }
+        set { hydrationUnitRaw = newValue.rawValue }
+    }
+
     public init(sessionStore: SessionStore? = nil,
-                importNote: String? = L10n.importRequiresConfirmation,
+                importNote: String? = L10n.settingsImportNote,
                 exportService: DataExportService = DataExportService(),
                 importService: DataImportService = DataImportService(),
                 clock: @escaping () -> Date = Date.init) {
@@ -50,6 +59,19 @@ public final class SettingsViewModel: ObservableObject {
         let sessions = importService.apply(validated)
         let state = try await sessionStore.merge(imported: sessions, strategy: strategy)
         onStoreUpdate?(state)
-        statusMessage = L10n.importSuccess
+        statusMessage = L10n.settingsImportSuccess
     }
+
+    public func updateTargetHours(_ hours: Double) {
+        targetHours = hours
+    }
+
+    public func updateQuickAddAmount(_ amount: Int) {
+        quickAddAmount = amount
+    }
+}
+
+public enum HydrationUnit: String, CaseIterable {
+    case milliliters
+    case fluidOunces
 }

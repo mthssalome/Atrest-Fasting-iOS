@@ -44,10 +44,10 @@ public struct FastingSessionMachine: Equatable {
     }
 
     @discardableResult
-    public mutating func complete(at end: Date) -> FastingStatus {
+    public mutating func complete(at end: Date, targetDurationHours: Double = 16.0) -> FastingStatus {
         guard case let .active(period) = status else { return status }
         let endTime = max(end, period.start)
-        let session = FastingSession(start: period.start, end: endTime)
+        let session = FastingSession(start: period.start, end: endTime, targetDurationHours: targetDurationHours)
         status = .completed(session)
         return status
     }

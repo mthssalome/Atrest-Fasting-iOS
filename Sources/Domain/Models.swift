@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 public enum Entitlement: Equatable {
     case free
@@ -10,11 +11,13 @@ public struct FastingSession: Equatable {
     public let id: UUID
     public let start: Date
     public let end: Date
+    public let targetDurationHours: Double
 
-    public init(id: UUID = UUID(), start: Date, end: Date) {
+    public init(id: UUID = UUID(), start: Date, end: Date, targetDurationHours: Double = 16.0) {
         self.id = id
         self.start = start
         self.end = end
+        self.targetDurationHours = targetDurationHours
     }
 
     public var durationHours: Double {
@@ -39,18 +42,20 @@ public struct CalendarEntry: Equatable {
     public let sessionID: UUID
     public let date: Date
     public let isInspectable: Bool
+    public let isIncomplete: Bool
+    public let durationHours: Double
 
-    public init(sessionID: UUID, date: Date, isInspectable: Bool) {
+    public init(sessionID: UUID, date: Date, isInspectable: Bool, isIncomplete: Bool = false, durationHours: Double = 0) {
         self.sessionID = sessionID
         self.date = date
         self.isInspectable = isInspectable
+        self.isIncomplete = isIncomplete
+        self.durationHours = durationHours
     }
 }
 
-public enum CoreUtility: CaseIterable, Equatable {
-    case timer
-    case phases
-    case waterTracking
+public enum FastingDefaults {
+    @AppStorage("atrest.fasting.targetHours") public static var targetHours: Double = 16.0
 }
 
 public struct WaterIntakeEntry: Equatable, Identifiable, Codable {

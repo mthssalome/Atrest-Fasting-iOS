@@ -23,15 +23,17 @@ public struct FastingSessionDTO: Codable, Equatable {
     public let id: UUID
     public let start: Date
     public let end: Date
+    public let targetDurationHours: Double?
 
     public init(session: FastingSession) {
         self.id = session.id
         self.start = session.start
         self.end = session.end
+        self.targetDurationHours = session.targetDurationHours
     }
 
     public func domainModel() -> FastingSession {
-        FastingSession(id: id, start: start, end: end)
+        FastingSession(id: id, start: start, end: end, targetDurationHours: targetDurationHours ?? 16.0)
     }
 }
 

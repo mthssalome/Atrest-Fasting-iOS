@@ -4,6 +4,7 @@ import Domain
 public struct SessionStoreState: Equatable {
     public let sessions: [FastingSession]
     public let active: FastingPeriod?
+    public let activeTargetHours: Double?
     public let completedCount: Int
 }
 
@@ -22,14 +23,16 @@ public actor SessionStore {
     private struct ActiveStateDTO: Codable, Equatable {
         var start: Date
         var lastEvent: Date
+        var targetDurationHours: Double
 
         var period: FastingPeriod {
             FastingPeriod(start: start, lastEvent: lastEvent)
         }
 
-        init(period: FastingPeriod) {
+        init(period: FastingPeriod, targetDurationHours: Double = 16.0) {
             self.start = period.start
             self.lastEvent = period.lastEvent
+            self.targetDurationHours = targetDurationHours
         }
     }
 
@@ -67,23 +70,24 @@ public actor SessionStore {
             return SessionStoreState(
                 sessions: persisted.sessions.map { $0.domainModel() },
                 active: persisted.active?.period,
+                activeTargetHours: persisted.active?.targetDurationHours,
                 completedCount: persisted.completedCount
             )
         } catch {
-            return SessionStoreState(sessions: [], active: nil, completedCount: 0)
+            return SessionStoreState(sessions: [], active: nil, activeTargetHours: nil, completedCount: 0)
         }
     }
 
-    public func setActive(_ period: FastingPeriod?) async throws -> SessionStoreState {
+    public func setActive(_ period: FastingPeriod?, targetDurationHours: Double? = nil) async throws -> SessionStoreState {
         var state = await load()
-        state = SessionStoreState(sessions: state.sessions, active: period, completedCount: state.completedCount)
+        state = SessionStoreState(sessions: state.sessions, active: period, activeTargetHours: targetDurationHours, completedCount: state.completedCount)
         try persist(state)
         return state
     }
 
-    public func saveSessions(_ sessions: [FastingSession], active: FastingPeriod?, completedCount: Int) async throws -> SessionStoreState {
+    public func saveSessions(_ sessions: [FastingSession], active: FastingPeriod?, activeTargetHours: Double?, completedCount: Int) async throws -> SessionStoreState {
         let sanitized = Self.sortedDedup(sessions)
-        let state = SessionStoreState(sessions: sanitized, active: active, completedCount: completedCount)
+        let state = SessionStoreState(sessions: sanitized, active: active, activeTargetHours: activeTargetHours, completedCount: completedCount)
         try persist(state)
         return state
     }
@@ -95,7 +99,7 @@ public actor SessionStore {
         map[session.id] = session
         let merged = map.values.sorted { $0.end > $1.end }
         let updatedCount = incrementCompleted && isNew ? state.completedCount + 1 : state.completedCount
-        let newState = SessionStoreState(sessions: merged, active: nil, completedCount: updatedCount)
+        let newState = SessionStoreState(sessions: merged, active: nil, activeTargetHours: nil, completedCount: updatedCount)
         try persist(newState)
         return newState
     }
@@ -124,7 +128,7 @@ public actor SessionStore {
             completedCount = current.completedCount + added
         }
 
-        let state = SessionStoreState(sessions: mergedSessions, active: current.active, completedCount: completedCount)
+        let state = SessionStoreState(sessions: mergedSessions, active: current.active, activeTargetHours: current.activeTargetHours, completedCount: completedCount)
         try persist(state)
         return state
     }
@@ -134,7 +138,7 @@ public actor SessionStore {
     private func persist(_ state: SessionStoreState) throws {
         let dto = PersistedState(
             sessions: state.sessions.map(FastingSessionDTO.init),
-            active: state.active.map(ActiveStateDTO.init),
+            active: state.active.map { ActiveStateDTO(period: $0, targetDurationHours: state.activeTargetHours ?? 16.0) },
             completedCount: state.completedCount
         )
         let data = try encoder.encode(dto)

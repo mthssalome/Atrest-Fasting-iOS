@@ -21,6 +21,7 @@ final class SessionStoreTests: XCTestCase {
         let state = await store.load()
         XCTAssertTrue(state.sessions.isEmpty)
         XCTAssertNil(state.active)
+        XCTAssertNil(state.activeTargetHours)
         XCTAssertEqual(state.completedCount, 0)
     }
 
@@ -40,10 +41,11 @@ final class SessionStoreTests: XCTestCase {
 
     func testActivePersistsAndRestores() async throws {
         let period = FastingPeriod(start: Date(timeIntervalSince1970: 10), lastEvent: Date(timeIntervalSince1970: 20))
-        _ = try await store.setActive(period)
+        _ = try await store.setActive(period, targetDurationHours: 18)
 
         let reloaded = await store.load()
         XCTAssertEqual(reloaded.active, period)
+        XCTAssertEqual(reloaded.activeTargetHours, 18)
     }
 
     func testMergeDedupAddsNewSessionsOnly() async throws {

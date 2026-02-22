@@ -67,17 +67,17 @@ public enum CalendarPolicy {
         switch entitlement {
         case .premium, .trial:
             return persisted.map { session in
-                CalendarEntry(sessionID: session.id, date: session.end, isInspectable: true)
+                CalendarEntry(sessionID: session.id, date: session.end, isInspectable: true, isIncomplete: Self.isIncomplete(session), durationHours: session.durationHours)
             }
         case .free:
-            let visible = persisted.prefix(10).map { session in
-                CalendarEntry(sessionID: session.id, date: session.end, isInspectable: true)
+            return persisted.prefix(10).map { session in
+                CalendarEntry(sessionID: session.id, date: session.end, isInspectable: true, isIncomplete: Self.isIncomplete(session), durationHours: session.durationHours)
             }
-            let locked = persisted.dropFirst(10).map { session in
-                CalendarEntry(sessionID: session.id, date: session.end, isInspectable: false)
-            }
-            return visible + locked
         }
+    }
+
+    private static func isIncomplete(_ session: FastingSession) -> Bool {
+        session.durationHours < session.targetDurationHours && session.durationHours >= session.targetDurationHours * 0.70
     }
 }
 
@@ -91,44 +91,22 @@ public enum HistoryVisibilityPolicy {
                 HistoryItem(session: session, isInspectable: true, isSilhouette: false)
             }
         case .free:
-            let inspectable = sorted.prefix(10)
-            let locked = sorted.dropFirst(10)
-            let visibleInspectable = inspectable.map { session in
-                HistoryItem(session: session, isInspectable: true, isSilhouette: false)
-            }
-            let silhouettes = locked.map { session in
-                HistoryItem(session: sanitize(session), isInspectable: false, isSilhouette: true)
-            }
-            return visibleInspectable + silhouettes
+            return []
         }
-    }
-
-    private static func sanitize(_ session: FastingSession) -> FastingSession {
-        FastingSession(id: session.id, start: Date(timeIntervalSince1970: 0), end: Date(timeIntervalSince1970: 0))
-    }
-}
-
-public enum CoreUtilityPolicy {
-    public static func availableUtilities(for entitlement: Entitlement) -> [CoreUtility] {
-        CoreUtility.allCases
     }
 }
 
 public enum TrialPolicy {
-    /// Returns the entitlement granted by the completed-fast trial window.
-    /// - Contract: first 10 completions are premium, 11th shows notice, 12th reverts to free.
+    /// First 10 completed fasts → trial entitlement.
     public static func entitlement(forCompleted count: Int) -> Entitlement? {
-        switch count {
-        case ...10:
-            return .trial
-        case 11:
-            return .trial
-        default:
-            return nil
-        }
+        count <= 10 ? .trial : nil
     }
 
-    public static func isNoticeDue(completed count: Int) -> Bool {
-        count == 11
+    public static func shouldShowTransitionMoment(completedCount: Int) -> Bool {
+        completedCount == 10 && !UserDefaults.standard.bool(forKey: "atrest.transition.dismissed")
+    }
+
+    public static func markTransitionDismissed() {
+        UserDefaults.standard.set(true, forKey: "atrest.transition.dismissed")
     }
 }

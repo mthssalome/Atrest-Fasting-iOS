@@ -74,17 +74,17 @@ final class EntitlementServiceTests: XCTestCase {
         XCTAssertEqual(snapshot.entitlement, .free)
     }
 
-    func testTrialEntitlementAppliesForFirstTenCompletions() async {
+    func testTrialEntitlementAppliesThroughTenthCompletionOnly() async {
         let client = MockPurchaseClient()
-        let service = EntitlementService(store: store, purchaseClient: client, clock: { self.clockDate }, completedCount: { 8 })
+        let service = EntitlementService(store: store, purchaseClient: client, clock: { self.clockDate }, completedCount: { 10 })
         let snapshot = await service.current()
         XCTAssertEqual(snapshot.entitlement, .trial)
         XCTAssertEqual(snapshot.source, .trial)
     }
 
-    func testTrialExpiresAfterEleven() async {
+    func testTrialExpiresAfterTenthCompletion() async {
         let client = MockPurchaseClient(currentOutcome: .notFound)
-        let service = EntitlementService(store: store, purchaseClient: client, clock: { self.clockDate }, completedCount: { 12 })
+        let service = EntitlementService(store: store, purchaseClient: client, clock: { self.clockDate }, completedCount: { 11 })
         let snapshot = await service.current()
         XCTAssertEqual(snapshot.entitlement, .free)
     }

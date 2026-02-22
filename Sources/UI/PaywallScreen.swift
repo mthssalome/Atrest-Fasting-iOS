@@ -11,67 +11,45 @@ public struct PaywallScreen: View {
 
     public var body: some View {
         ZStack {
-            Palette.canvas.ignoresSafeArea()
-            VStack(alignment: .leading, spacing: Spacing.lg) {
-                VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text(L10n.paywallTitle)
-                        .font(Typography.title)
-                        .foregroundStyle(Palette.highlight)
-                    Text(L10n.paywallSubtitle)
-                        .font(Typography.caption)
-                        .foregroundStyle(Palette.muted)
-                }
+            DuskBackground()
+                .ignoresSafeArea()
 
-                VStack(spacing: Spacing.sm) {
-                    paywallRow(title: L10n.paywallAnnual, product: .annual)
-                    paywallRow(title: L10n.paywallLifetime, product: .lifetime)
+            ScrollView {
+                VStack(alignment: .leading, spacing: Spacing.xl) {
+                    header
+                    productStack
+                    reassurance
+                    footer
                 }
-
-                VStack(alignment: .leading, spacing: Spacing.xs) {
-                    Text(L10n.paywallPrivacy)
-                        .font(Typography.caption)
-                        .foregroundStyle(Palette.muted)
-                    Text(L10n.paywallLocalOnly)
-                        .font(Typography.caption)
-                        .foregroundStyle(Palette.muted)
-                    Text(L10n.paywallRenewal)
-                        .font(Typography.caption)
-                        .foregroundStyle(Palette.muted)
-                    HStack(spacing: Spacing.md) {
-                        if let termsURL = URL(string: L10n.paywallTermsURL) {
-                            Link(L10n.paywallTerms, destination: termsURL)
-                                .font(Typography.caption)
-                                .foregroundStyle(Palette.accent)
-                        }
-                        if let privacyURL = URL(string: L10n.paywallPrivacyURL) {
-                            Link(L10n.paywallPrivacyLink, destination: privacyURL)
-                                .font(Typography.caption)
-                                .foregroundStyle(Palette.accent)
-                        }
-                    }
-                }
-
-                HStack {
-                    Button(L10n.paywallRestore) {
-                        Task { await viewModel.restore() }
-                    }
-                    .foregroundStyle(Palette.accent)
-                    Spacer()
-                    Text(viewModel.statusText)
-                        .font(Typography.caption)
-                        .foregroundStyle(Palette.muted)
-                }
-
-                Spacer()
+                .padding(.horizontal, Spacing.lg)
+                .padding(.vertical, Spacing.xl)
             }
-            .padding(.horizontal, Spacing.lg)
-            .padding(.top, Spacing.xl)
         }
         .task { await viewModel.loadProducts() }
     }
 
-    private func paywallRow(title: String, product: PurchaseProduct) -> some View {
-        HStack {
+    private var header: some View {
+        VStack(alignment: .leading, spacing: Spacing.md) {
+            Text(L10n.paywallValues)
+                .font(Typography.title)
+                .foregroundStyle(Palette.highlight)
+            Text(L10n.paywallDescription)
+                .font(Typography.body)
+                .foregroundStyle(Palette.muted)
+        }
+    }
+
+    private var productStack: some View {
+        VStack(spacing: Spacing.md) {
+            productCard(title: L10n.paywallAnnual, product: .annual)
+            productCard(title: L10n.paywallLifetime, product: .lifetime)
+        }
+    }
+
+    private func productCard(title: String, product: PurchaseProduct) -> some View {
+        Button {
+            Task { await viewModel.purchase(product) }
+        } label: {
             VStack(alignment: .leading, spacing: Spacing.xs) {
                 Text(title)
                     .font(Typography.heading)
@@ -80,16 +58,54 @@ public struct PaywallScreen: View {
                     .font(Typography.body)
                     .foregroundStyle(Palette.accent)
             }
-            Spacer()
-            Button(L10n.paywallSelect) {
-                Task { await viewModel.purchase(product) }
-            }
-            .foregroundStyle(Palette.highlight)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(Spacing.md)
+            .background(Palette.surface.opacity(0.8))
+            .cornerRadius(Radii.soft)
         }
-        .padding(Spacing.md)
-        .frame(maxWidth: .infinity)
-        .background(Palette.surface)
-        .cornerRadius(Radii.soft)
+        .buttonStyle(.plain)
+    }
+
+    private var reassurance: some View {
+        VStack(alignment: .leading, spacing: Spacing.xs) {
+            Text(L10n.paywallAppleNote)
+                .font(Typography.caption)
+                .foregroundStyle(Palette.muted)
+            Text(L10n.paywallRenewalNote)
+                .font(Typography.caption)
+                .foregroundStyle(Palette.muted)
+        }
+    }
+
+    private var footer: some View {
+        VStack(alignment: .leading, spacing: Spacing.sm) {
+            HStack {
+                Button(L10n.paywallRestore) {
+                    Task { await viewModel.restore() }
+                }
+                .font(Typography.body)
+                .foregroundStyle(Palette.accent)
+
+                Spacer()
+
+                Text(viewModel.statusText)
+                    .font(Typography.caption)
+                    .foregroundStyle(Palette.muted)
+            }
+
+            HStack(spacing: Spacing.md) {
+                if let termsURL = URL(string: L10n.paywallTermsURL) {
+                    Link(L10n.paywallTerms, destination: termsURL)
+                        .font(Typography.caption)
+                        .foregroundStyle(Palette.accent)
+                }
+                if let privacyURL = URL(string: L10n.paywallPrivacyURL) {
+                    Link(L10n.paywallPrivacy, destination: privacyURL)
+                        .font(Typography.caption)
+                        .foregroundStyle(Palette.accent)
+                }
+            }
+        }
     }
 }
 

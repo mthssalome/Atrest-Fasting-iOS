@@ -5,7 +5,7 @@ import Domain
 @MainActor
 public final class PaywallViewModel: ObservableObject {
     @Published public private(set) var products: [PurchaseProduct: StoreProductInfo] = [:]
-    @Published public private(set) var statusText: String = L10n.paywallStatusIdle
+    @Published public private(set) var statusText: String = ""
     @Published public private(set) var entitlement: EntitlementSnapshot
 
     private let entitlementService: EntitlementServicing
@@ -41,12 +41,8 @@ public final class PaywallViewModel: ObservableObject {
         entitlement = snapshot
     }
 
-    public func setStatusMessage(_ message: String) {
-        statusText = message
-    }
-
     public func purchase(_ product: PurchaseProduct) async {
-        statusText = L10n.paywallStatusPurchasing
+        statusText = L10n.paywallStatusProcessing
         let snapshot = await entitlementService.purchase(product: product)
         entitlement = snapshot
         statusText = snapshot.entitlement == .premium ? L10n.paywallStatusSuccess : L10n.paywallStatusError

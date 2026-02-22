@@ -1,11 +1,12 @@
 import Foundation
 
 public enum FastingMilestone: Equatable {
-    case digestiveCompletion
-    case earlyMetabolicShift
-    case increasingMetabolicFlexibility
-    case deeperFastingState
-    case extendedFasting
+    case digestionCompleting          // 0–4h
+    case beginningToShift             // 4–8h
+    case metabolicTransition          // 8–12h
+    case deeperRhythm                 // 12–16h
+    case extendedFast                 // 16–24h
+    case prolongedFast                // 24h+
 
     public struct Window: Equatable {
         public let lowerBoundHours: Double
@@ -27,27 +28,30 @@ public enum FastingMilestone: Equatable {
 
     public var window: Window {
         switch self {
-        case .digestiveCompletion:
+        case .digestionCompleting:
             return Window(lowerBoundHours: 0, upperBoundHours: 4)
-        case .earlyMetabolicShift:
+        case .beginningToShift:
             return Window(lowerBoundHours: 4, upperBoundHours: 8)
-        case .increasingMetabolicFlexibility:
+        case .metabolicTransition:
             return Window(lowerBoundHours: 8, upperBoundHours: 12)
-        case .deeperFastingState:
+        case .deeperRhythm:
             return Window(lowerBoundHours: 12, upperBoundHours: 16)
-        case .extendedFasting:
-            return Window(lowerBoundHours: 16, upperBoundHours: nil)
+        case .extendedFast:
+            return Window(lowerBoundHours: 16, upperBoundHours: 24)
+        case .prolongedFast:
+            return Window(lowerBoundHours: 24, upperBoundHours: nil)
         }
     }
 
     public static func milestone(forElapsedHours hours: Double) -> FastingMilestone? {
         guard hours >= 0 else { return nil }
         let milestones: [FastingMilestone] = [
-            .digestiveCompletion,
-            .earlyMetabolicShift,
-            .increasingMetabolicFlexibility,
-            .deeperFastingState,
-            .extendedFasting
+            .digestionCompleting,
+            .beginningToShift,
+            .metabolicTransition,
+            .deeperRhythm,
+            .extendedFast,
+            .prolongedFast
         ]
         return milestones.first { $0.window.contains(hours) }
     }

@@ -76,6 +76,8 @@ public enum L10n {
     public static let paywallRenewalNote = tr("paywall.renewal.note", "Renewal disclosure")
     public static let paywallTerms = tr("paywall.terms", "Terms of Service label")
     public static let paywallPrivacy = tr("paywall.privacy", "Privacy Policy label")
+    public static let paywallTermsURL = tr("settings.terms.url", "Terms URL (shared)")
+    public static let paywallPrivacyURL = tr("settings.privacy.url", "Privacy URL (shared)")
     public static let paywallStatusProcessing = tr("paywall.status.processing", "Processing purchase")
     public static let paywallStatusRestoring = tr("paywall.status.restoring", "Restoring purchase")
     public static let paywallStatusError = tr("paywall.status.error", "Purchase error")
