@@ -54,17 +54,19 @@ The guiding principle:
 
 A Christian fasting during Lent feels the resonance. A secular biohacker feels the calm. Same surface, different depth. Neither is told what to feel.
 
-### Surface 2.5: Optional Spiritual Depth Layer (future, premium)
+### Surface 2.5: Vigil — Optional Depth Layer
 
-An **opt-in** layer — not default, not visible until chosen — for users who want explicit Christian content:
+An **opt-in** content layer — not default, not visible until chosen — for users who want explicit Christian content. Activated by a single toggle in Settings labeled **"Vigil"**.
 
-- **A "Reflections" toggle in settings.** When enabled, the app surfaces a short Scripture verse or contemplative prompt connected to the completion of a fast. Not at the beginning (that would be coercive). At the arrival moment — when the tree is fully materialized.
-- **Seasonal awareness** (optional). "I'm observing Lent" could subtly shift the app's atmosphere — not mechanics. An awareness, not a schedule.
-- **Community resonance** (future possibility). A quiet number: "12,000 people are fasting with you this Lent." Communion without interaction.
+When active, Vigil adds Scripture fragments and contemplative language throughout the fasting experience: idle state, fast start, all six milestone phases, arrival, and the forest. It does not change any mechanic, any visual element, or any behavior. It changes what the app *says* — placing Scripture and reflective language alongside the biological companion text.
+
+Scripture is presented as paraphrased fragments in the app's companion voice, without named translations. A long-press reveals book and chapter only. The visual register shares the star's color family (`#F0EDE6` at ~60% opacity) — quiet luminance that belongs to neither sky nor earth.
+
+The full specification — theological ground, visual treatment, typography, motion choreography, content for every touchpoint, and rules — lives in **`doctrine/08-depth-layer.md`**.
 
 This layer is Atrest's moat: no secular app can build it authentically, and no content-heavy Christian app (Spirit Fast) can match the experience quality.
 
-**This layer is designed now, built later.** It is not part of the initial release.
+**Vigil ships with V1.** Future expansions (seasonal awareness, expanded rotation, community presence) are designed later.
 
 ---
 

@@ -62,11 +62,10 @@ All three open questions from the previous session have been resolved:
 
 ### Remaining work
 
-1. **Update `doctrine/07-audience-positioning.md`** — Surface 2.5 section now references "Reflections toggle" and says "designed now, built later." Both are outdated. Should reference Vigil and `doctrine/08-depth-layer.md`.
-2. **Write implementation spec** for Vigil (when user requests coding to begin) — UserDefaults boolean, conditional string selection, long-press gesture, daily rotation logic.
-3. **Expand idle fragments** from 10 to 30 for full monthly rotation (V1.1).
-4. **Future Vigil expansions:** seasonal awareness (Lent, Advent), community presence number, curated arrival prompt expansion. All designed later.
-5. **All other pending items** from prior sessions: TestFlight, App Store listing, custom SVG nav icons, visual refinement, marketing strategy brief.
+1. **Implementation:** Hand `spec/vigil-implementation-handover.md` to a coding AI instance. It has everything needed: module map, phase-by-phase instructions, exact file modifications, new file specs, test specs, and a completion checklist.
+2. **Expand idle fragments** from 10 to 30 for full monthly rotation (V1.1).
+3. **Future Vigil expansions:** seasonal awareness (Lent, Advent), community presence number, curated arrival prompt expansion. All designed later.
+4. **All other pending items** from prior sessions: TestFlight, App Store listing, custom SVG nav icons, visual refinement, marketing strategy brief.
 
 ---
 
