@@ -91,6 +91,183 @@ This interaction rewards curiosity with precision, then returns to stillness.
 
 ---
 
+## Visual Specification
+
+Every visual decision in the Vigil layer must meet the same standard
+as the premium experience it lives within. Scripture is not a feature
+bolted onto the aesthetic — it is atmosphere that deepens the atmosphere.
+
+The test from `06-apple-ux.md` applies without exception:
+
+> Does this deepen the stillness, or does it break it?
+
+### The Star Register
+
+Stars in the Atrest design system occupy their own visual register:
+neither sky (gradient) nor earth (tree tones). A star is near-white light
+(`#F0EDE6`) with a soft radial glow. It belongs to a third layer.
+
+**Scripture shares the star register.**
+
+Not the same size, not the same glow — but the same color family,
+the same sense of belonging to a layer that is neither ground
+nor atmosphere. Stars and Scripture are both quiet points of luminance
+in a dark, earthy world — lights that appeared because something
+was completed, or given, or held.
+
+This creates a subtle visual kinship between stars in the forest sky
+and verse fragments on the timer. The user never thinks about this
+consciously. They feel it.
+
+### Typography
+
+Scripture fragments are typeset as their own register —
+distinct from both companion text and UI labels.
+They are not body copy. They are not headings.
+They are inscriptions: the typographic equivalent
+of words carved slowly into stone.
+
+- **Weight:** lighter than companion text.
+  If companion is `regular`, Scripture is `light` or `ultraLight`.
+- **Size:** slightly smaller than companion text.
+  Scripture is not competing for attention; it is present beneath it.
+- **Tracking (letter-spacing):** wider than companion text.
+  Each letter has room to breathe.
+  This is what makes inscription feel different from prose.
+- **Color:** star-register tone — `#F0EDE6` at ~60% opacity.
+  Not the same white/near-white as body text.
+  Scripture lives in the same visual register as stars:
+  its own light, neither sky nor earth.
+- **Alignment:** centered. Always.
+  Scripture is not left-aligned prose.
+  It sits in the center of its space like text on a monument.
+- **Line height:** extremely generous.
+  If the fragment is two lines, the gap between them
+  should feel deliberate, not automatic.
+
+### Hierarchy of Attention
+
+The aesthetic doctrine's hardest rule:
+
+> Each screen has one thing that the eye is meant to rest on.
+> One. Everything else recedes.
+
+**Scripture fragments are subordinate to the primary attention object
+on every screen.** They never compete with the tree, the elapsed time,
+or the forest. They are present the way a watermark is present —
+noticeable when you look, invisible when you don't.
+
+The eye should be able to rest on the primary object for minutes
+without Scripture pulling focus.
+
+Specific placement:
+
+- **Timer screen:** milestone Scripture sits *below* the companion text,
+  after a generous spacer (~20pt). It is the last thing in the content
+  stack, closest to the bottom. Not demanding, not calling. There.
+- **Forest screen:** "Consider how they grow" is anchored to the bottom
+  edge of the viewport — not scrolling with the trees. Small. Muted.
+  The inscription on the frame of the painting, not in the painting.
+- **Idle screen:** the daily fragment sits below "Begin when you're ready"
+  — a subtitle to the day, not a headline. Approximately 24–32pt
+  of space between prompt and Scripture. Close enough to feel related,
+  far enough to be clearly a different voice.
+
+### Surface Treatment
+
+The aesthetic doctrine defines three layers:
+
+> Gradients = the world. Frosted glass = interface on world.
+> Custom SVG = the experience layer.
+
+**Scripture renders directly over the gradient, with no background surface.**
+
+No chips. No cards. No frosted backing. The text floats in the dusk
+the same way the elapsed time floats in the dusk.
+It is part of the world, not on top of it.
+
+If Scripture were placed on a frosted-glass chip, it would become UI —
+a feature, a component. Floating in the air of the dusk sky,
+it becomes atmosphere — part of the place.
+
+Inscription on the wall of the room, not a plaque hung on the wall.
+
+### Motion Choreography
+
+All animations follow the motion doctrine: 300–600ms, organic easing,
+never celebratory, never urgent.
+
+**Fast-start line** ("You have set this time apart."):
+- Fade in: 600ms, ease-out (arrives gently, like breath)
+- Hold: 2.5 seconds
+- Fade out: 800ms, ease-in (leaves more slowly than it arrived)
+- Total presence: ~4 seconds
+- The user catches it, or doesn't. It never repeats for that fast.
+
+**Milestone Scripture appearance** (on phase transition):
+- The companion text updates immediately as it does now.
+  The Scripture fragment fades in 400ms *after* the companion text
+  settles — a beat of separation. Two things arriving at different
+  times, not a block of text that swaps in at once.
+- Ease curve: ease-out (the fragment arrives; it does not snap).
+
+**Long-press citation reveal:**
+- Appear: 300ms fade-in (responsive — the user asked for this)
+- Hold: 2 seconds
+- Fade out: 500ms ease-in
+- Position: directly below the Scripture fragment, center-aligned
+- Typography: caption-weight, wider tracking than the Scripture itself.
+  Same star-register color at ~40% opacity.
+  Book and chapter reads as a quiet whisper below the inscription.
+
+**Arrival Scripture:**
+- Appears 800ms after the star has fully faded in.
+  The star is first. Always. The star is the product's signature moment.
+  Scripture follows — a companion to the star, not a replacement for it.
+- Fade in: 600ms ease-out.
+- Remains for as long as the user stays on the completion screen.
+  No fade-out. It is there until they leave.
+
+**Forest inscription** ("Consider how they grow."):
+- Present on screen entry. No animation. It is always there,
+  the way an inscription on a wall is always there.
+  You notice it when you notice it.
+
+### The Idle Screen Composition
+
+With Vigil active, the idle screen has a three-layer vertical composition:
+
+```
+              [resting prompt — centered, mid-screen]
+
+                         ~24–32pt spacer
+
+     [daily Scripture — centered, star-register color, lighter weight]
+
+
+
+
+              [forest]    [calendar]    [settings]
+              40% opacity floating navigation icons
+```
+
+The Scripture sits in the gravitational field of the prompt
+but is clearly a different voice — a different weight, a different color,
+a different tracking width. Two layers of the same quietness.
+
+### What Vigil Must Never Do Visually
+
+- Add a new color to the palette. Scripture uses what exists (star register).
+- Add a background surface where none exists. No cards, no chips, no badges.
+- Increase the information density of any screen. If adding Scripture
+  makes a screen feel heavier, the spacing is wrong.
+- Animate anything that the default layer does not animate.
+  Vigil adds *content* to existing motion moments; it does not create new motion.
+- Alter the tree, the star, the forest, the dusk gradient, or any element
+  of the core visual experience. Vigil is words. The world is unchanged.
+
+---
+
 ## Touchpoint Architecture
 
 Vigil speaks at specific moments. Not all of them. Not constantly.
