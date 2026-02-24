@@ -1,6 +1,6 @@
 # Session State — Depth Toggle Design
 
-> **Written:** 2026-02-23
+> **Written:** 2026-02-23 | **Updated:** 2026-02-24
 > **Purpose:** Seamless continuation document. Feed this to Claude at session start.
 > **Role:** Claude is acting as systems thinker, critic, and design partner — not a coding assistant. No implementation unless explicitly requested.
 
@@ -9,8 +9,8 @@
 ## Project Status
 
 - **Repository:** `github.com/mthssalome/Atrest-Fasting-iOS.git`
-- **Branch:** main at `acecc3f` — clean, pushed
-- **All 7 doctrine files:** finalized and committed
+- **Branch:** main at `18c6793` — clean
+- **All 8 doctrine files:** finalized and committed (including `08-depth-layer.md`)
 - **Full V1 implementation:** committed (33 files, 1650 insertions, 648 deletions)
 - **Copy rewrite + 8 SVG tree assets:** committed
 - **Handover docs:** `spec/implementation-handover.md` + `spec/implementation-supplement.md`
@@ -28,63 +28,45 @@ This is the feature that makes Atrest uncopyable: the same app serves two audien
 
 ## Decisions Locked
 
+### All open questions from 2026-02-23 are now resolved.
+
 ### 1. The toggle is a content layer, not a mode switch
 Nothing about the app's behavior changes. The fast is the same length. The tree materializes the same way. The forest is the same canvas. What changes is **what the app says to you** at certain moments — a second interpretive lens that sits on top of the same experience and transforms its meaning without altering its mechanics.
 
 ### 2. Non-denominational, creation-theology grounding
 The depth layer lives in pre-denominational territory: creation, stewardship, rest, patience, gratitude, attentiveness, the body as something entrusted. These are universally Christian without signaling any specific tradition.
 
-**Avoid:** named Bible translations, sacramental language, liturgical assumptions, prosperity/achievement framing, Marian/saints references. **Use:** creation theology, body-as-gift, quiet practice, threshold language, attentiveness, honoring what was given.
+### 3. The name is "Vigil"
+Section label in settings: **Vigil**. Explanation line: *"Adds Scripture and reflective language throughout your fasting experience."* Vigil describes watchful, attentive presence — loaded with precise Christian meaning (keeping vigil, vigil prayers, "watch and pray") while reading as serious and quiet to non-Christians. Not pretentious, not categorical, not denominational.
 
-### 3. V1 content weight: lightest possible (two touchpoints only)
-- **Touchpoint 1:** Milestone language shifts — alternate copy for each fasting phase when toggle is on
-- **Touchpoint 2:** A single contemplative line at the arrival moment (tree completion)
-- **Nothing else for V1.** No liturgical calendar, no seasonal awareness, no community presence number. Those are future expansions that will feel like the app growing alongside the user.
+### 4. Entitlement: Free forever
+The Vigil toggle and all V1 content are free. Gating spiritual depth behind a paywall inverts the product's dignity principle. Future Vigil expansions (seasonal content, expanded rotation, community presence) represent curation work and may live in premium.
 
-### 4. Register: invitation, never instruction
-The depth layer suggests proximity to the sacred without explaining it, assigning theological meaning, or commanding the user. It opens a space for meaning-making; it does not deliver meaning.
+### 5. Content weight: present throughout, with restraint
+Vigil is NOT limited to two touchpoints. It speaks at: idle state, fast start, all 6 milestone phases, arrival, and forest. It is silent at: incomplete fasts (grace doesn't need narrating) and calendar (data view, Scripture cheapens it). Full architecture in `doctrine/08-depth-layer.md`.
 
-**The test:** if the line could be read as a sermon, a command, or an explanation of what the user's fast "means," it fails.
+### 6. Scripture presentation: fragments, not quotations
+Paraphrased in the app's companion voice. No named translations (ESV/NIV/KJV all carry denominational signals). Long-press reveals book and chapter only (not verse number). 2-second fade. Interaction rewards curiosity with precision, then returns to stillness.
 
-### 5. Copy direction established (examples from this session)
-
-**Default milestone (8–12h):**
-> "You may start to feel the fast more here. Your body is shifting between energy sources — a natural and temporary adjustment."
-
-**With depth active (8–12h):**
-> "You may start to feel the fast more here. The body shifts between sources. Some have called this the threshold — where choosing to be present becomes its own quiet practice."
-
-**Arrival line (depth active):**
-> "The fast is complete. What was given has been honoured."
-
-Note: these are directional, not final copy. The register is the binding constraint.
+### 7. Register: Level 4 with restraint
+Explicitly Christian, Apple-esque, aesthetically elegant. Scripture is presented the way a monastery inscribes it on a wall — you encounter it, it encounters you, nobody mediates. Subtler than Spirit Fast or YouVersion, but unmistakably Christian for anyone who opts in.
 
 ---
 
-## Open Questions (to resolve when session resumes)
+## Open Questions (resolved 2026-02-24)
 
-### A. Entitlement: Free or Premium?
-Claude's recommendation: **milestone language shifts should be free.** Gating spiritual depth behind a paywall is optically wrong — it looks like charging for Scripture. If richer additions come later (curated seasonal content, arrival prompt rotation, community presence), that *curation work* can live in premium.
+All three open questions from the previous session have been resolved:
+- **A. Entitlement:** Free forever. Decided.
+- **B. UI Naming:** "Vigil." Decided.
+- **C. Milestone Copy:** All six phases written with companion additions and Scripture fragments. See `doctrine/08-depth-layer.md`.
 
-Counter-argument flagged: making depth free but premium-only for richer additions could create three-tier perception (free-secular, free-Christian-lite, premium-Christian-full) that might feel patronizing.
+### Remaining work
 
-**User has not yet decided.**
-
-### B. UI Naming: What appears in settings?
-Claude's instinct: a section called **"Depth"** with a single quiet toggle and one explanation line — something like *"Adds contemplative language to milestones and completion moments."*
-
-Rejected options and why:
-- "Reflections" — suggests journaling, wrong affordance
-- "Contemplative mode" — pretentious
-- "Faith" — too explicit, collapses the three-surface model
-- "Christian content" — violates rule 6 of audience positioning doctrine
-
-The name should be environmental, not categorical. The content signals the tradition; the label doesn't have to.
-
-**User has not yet decided.**
-
-### C. Exact Milestone Copy
-All six phases need depth-active variants written. Only one example exists (8–12h). The register is locked; the words are not.
+1. **Update `doctrine/07-audience-positioning.md`** — Surface 2.5 section now references "Reflections toggle" and says "designed now, built later." Both are outdated. Should reference Vigil and `doctrine/08-depth-layer.md`.
+2. **Write implementation spec** for Vigil (when user requests coding to begin) — UserDefaults boolean, conditional string selection, long-press gesture, daily rotation logic.
+3. **Expand idle fragments** from 10 to 30 for full monthly rotation (V1.1).
+4. **Future Vigil expansions:** seasonal awareness (Lent, Advent), community presence number, curated arrival prompt expansion. All designed later.
+5. **All other pending items** from prior sessions: TestFlight, App Store listing, custom SVG nav icons, visual refinement, marketing strategy brief.
 
 ---
 
