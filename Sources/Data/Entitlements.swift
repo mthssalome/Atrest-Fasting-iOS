@@ -159,6 +159,12 @@ public struct EntitlementSnapshot: Equatable {
     public let entitlement: Entitlement
     public let source: Source
     public let updatedAt: Date
+
+    public init(entitlement: Entitlement, source: Source, updatedAt: Date) {
+        self.entitlement = entitlement
+        self.source = source
+        self.updatedAt = updatedAt
+    }
 }
 
 public protocol EntitlementServicing {

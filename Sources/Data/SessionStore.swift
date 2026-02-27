@@ -93,7 +93,7 @@ public actor SessionStore {
     }
 
     public func append(_ session: FastingSession, incrementCompleted: Bool = true) async throws -> SessionStoreState {
-        var state = await load()
+        let state = await load()
         var map = Dictionary(uniqueKeysWithValues: state.sessions.map { ($0.id, $0) })
         let isNew = map[session.id] == nil
         map[session.id] = session
