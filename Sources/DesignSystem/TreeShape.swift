@@ -19,7 +19,7 @@ public struct TreeShape: Shape {
         guard !pathString.isEmpty else {
             return Path(ellipseIn: rect.insetBy(dx: rect.width * 0.15, dy: rect.height * 0.05))
         }
-        var path = Path(svgPath: pathString)
+        let path = Path(pathString)
         let bounds = path.boundingRect
         guard bounds.width > 0, bounds.height > 0 else { return path }
         let scale = min(rect.width / bounds.width, rect.height / bounds.height)
