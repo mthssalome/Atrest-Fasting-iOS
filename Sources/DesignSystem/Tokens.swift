@@ -95,31 +95,31 @@ public enum Radii {
 
 public enum Motion {
     public static var ease: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeInOut(duration: 0.4)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeInOut(duration: 0.4)
     }
     public static var slow: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeInOut(duration: 0.6)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeInOut(duration: 0.6)
     }
     public static var arrival: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeOut(duration: 1.2)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeOut(duration: 1.2)
     }
     public static var starAppear: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeIn(duration: 1.2).delay(0.4)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeIn(duration: 1.2).delay(0.4)
     }
     // Vigil animations (doctrine/08-depth-layer.md Visual Specification)
     public static var scriptureFadeIn: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeOut(duration: 0.6)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeOut(duration: 0.6)
     }
     public static var scriptureFadeOut: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeIn(duration: 0.8)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeIn(duration: 0.8)
     }
     public static var scriptureDelayed: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeOut(duration: 0.4).delay(0.4)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeOut(duration: 0.4).delay(0.4)
     }
     public static var citationReveal: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeOut(duration: 0.3)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeOut(duration: 0.3)
     }
     public static var citationDismiss: Animation {
-        UIAccessibility.isReduceMotionEnabled ? .none : .easeIn(duration: 0.5)
+        UIAccessibility.isReduceMotionEnabled ? .linear(duration: 0) : .easeIn(duration: 0.5)
     }
 }
