@@ -16,12 +16,11 @@ public struct TreeShape: Shape {
     }
 
     public func path(in rect: CGRect) -> Path {
-        guard !pathString.isEmpty else {
-            return Path(ellipseIn: rect.insetBy(dx: rect.width * 0.15, dy: rect.height * 0.05))
-        }
-        let path = Path(pathString)
+        let fallback = Path(ellipseIn: rect.insetBy(dx: rect.width * 0.15, dy: rect.height * 0.05))
+        guard !pathString.isEmpty else { return fallback }
+        guard let path = Path(pathString) else { return fallback }
         let bounds = path.boundingRect
-        guard bounds.width > 0, bounds.height > 0 else { return path }
+        guard bounds.width > 0, bounds.height > 0 else { return fallback }
         let scale = min(rect.width / bounds.width, rect.height / bounds.height)
         let transform = CGAffineTransform(translationX: -bounds.minX, y: -bounds.minY)
             .scaledBy(x: scale, y: scale)
