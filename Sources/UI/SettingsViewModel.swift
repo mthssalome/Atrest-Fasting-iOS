@@ -14,6 +14,7 @@ public final class SettingsViewModel: ObservableObject {
     @AppStorage("atrest.fasting.targetHours") public var targetHours: Double = 16.0
     @AppStorage("atrest.hydration.unit") public var hydrationUnitRaw: String = HydrationUnit.milliliters.rawValue
     @AppStorage("atrest.hydration.quickAdd") public var quickAddAmount: Int = 250
+    @AppStorage("atrest.vigil.enabled") public var isVigilEnabled: Bool = false
 
     private let sessionStore: SessionStore?
     private let exportService: DataExportService

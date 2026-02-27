@@ -6,6 +6,10 @@ public struct TimerScreen: View {
     @ObservedObject private var viewModel: TimerViewModel
     @ObservedObject private var waterViewModel: WaterViewModel
     private let entitlement: Entitlement
+    @AppStorage("atrest.vigil.enabled") private var isVigilEnabled: Bool = false
+
+    @State private var showFastStartLine = false
+    @State private var showArrivalScripture = false
 
     public init(viewModel: TimerViewModel, waterViewModel: WaterViewModel, entitlement: Entitlement) {
         self.viewModel = viewModel
@@ -22,12 +26,49 @@ public struct TimerScreen: View {
                     .onChange(of: context.date) { _, _ in _ = viewModel.refresh() }
                     .onChange(of: viewModel.status) { _, _ in _ = viewModel.refresh() }
             }
+
+            if showFastStartLine && isVigilEnabled {
+                Text(VigilContentProvider.fastStartLine)
+                    .font(Typography.body)
+                    .foregroundStyle(Palette.accent)
+                    .multilineTextAlignment(.center)
+                    .transition(.opacity)
+                    .padding(.horizontal, Spacing.xl)
+            }
         }
         .onChange(of: viewModel.isJustCompleted) { _, isComplete in
             if isComplete {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                    viewModel.isJustCompleted = false
+                if isVigilEnabled {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+                        withAnimation(Motion.scriptureFadeIn) {
+                            showArrivalScripture = true
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        viewModel.isJustCompleted = false
+                    }
                 }
+            }
+            if !isComplete {
+                showArrivalScripture = false
+            }
+        }
+        .onChange(of: viewModel.status) { oldStatus, newStatus in
+            if case .active = newStatus, case .idle = oldStatus {
+                if isVigilEnabled {
+                    withAnimation(Motion.scriptureFadeIn) {
+                        showFastStartLine = true
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.1) {
+                        withAnimation(Motion.scriptureFadeOut) {
+                            showFastStartLine = false
+                        }
+                    }
+                }
+            }
+            if case .completed = newStatus {} else {
+                showArrivalScripture = false
             }
         }
     }
@@ -62,13 +103,45 @@ public struct TimerScreen: View {
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, Spacing.xl)
                         .padding(.top, milestoneTextTopPadding(for: milestone))
+
+                    if isVigilEnabled {
+                        let vigilContent = VigilContentProvider.milestoneContent(for: milestone)
+
+                        Text(vigilContent.companionAddition)
+                            .font(Typography.body)
+                            .foregroundStyle(Palette.accent)
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal, Spacing.xl)
+                            .padding(.top, Spacing.xs)
+                            .transition(.opacity)
+                            .animation(Motion.ease, value: milestone)
+
+                        ScriptureFragmentView(
+                            text: vigilContent.scripture.text,
+                            citation: vigilContent.scripture.citation
+                        )
+                        .padding(.horizontal, Spacing.xl)
+                        .padding(.top, Spacing.lg)
+                        .transition(.opacity)
+                        .animation(Motion.scriptureDelayed, value: milestone)
+                    }
                 }
 
                 if case .idle = viewModel.status {
                     Text(L10n.timerIdlePrompt)
                         .font(Typography.body)
                         .foregroundStyle(Palette.accent)
+                        .padding(.bottom, isVigilEnabled ? Spacing.xl : Spacing.md)
+
+                    if isVigilEnabled {
+                        let fragment = VigilContentProvider.idleFragment()
+                        ScriptureFragmentView(
+                            text: fragment.text,
+                            citation: fragment.citation
+                        )
+                        .padding(.horizontal, Spacing.xl)
                         .padding(.bottom, Spacing.md)
+                    }
                 }
 
                 if case .completed = viewModel.status {
@@ -76,6 +149,18 @@ public struct TimerScreen: View {
                         .font(Typography.heading)
                         .foregroundStyle(Palette.highlight)
                         .padding(.bottom, Spacing.md)
+
+                    if viewModel.isJustCompleted && showArrivalScripture && isVigilEnabled {
+                        let completedCount = viewModel.completedFastCount ?? 0
+                        let fragment = VigilContentProvider.arrivalFragment(fastIndex: completedCount)
+                        ScriptureFragmentView(
+                            text: fragment.text,
+                            citation: fragment.citation
+                        )
+                        .padding(.horizontal, Spacing.xl)
+                        .padding(.top, Spacing.md)
+                        .transition(.opacity)
+                    }
                 }
 
                 if case .abandoned = viewModel.status {

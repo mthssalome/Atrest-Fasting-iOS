@@ -166,3 +166,79 @@
 "nav.a11y.forest" = "Forest";
 "nav.a11y.calendar" = "Calendar";
 "nav.a11y.settings" = "Settings";
+
+/* ----------------------------------------------------------
+   Vigil — Depth Layer  (doctrine: 08-depth-layer)
+   Scripture fragments. Companion additions. No commentary.
+   ---------------------------------------------------------- */
+
+/* Settings */
+"vigil.section.title"   = "Vigil";
+"vigil.section.explanation" = "Adds Scripture and reflective language throughout your fasting experience.";
+
+/* Fast start — companion line (not Scripture) */
+"vigil.fastStart" = "You have set this time apart.";
+
+/* Milestone companion additions */
+"vigil.milestone.digestionCompleting.companion" = "For now, it is simply a choice — a quiet setting-apart of hours.";
+"vigil.milestone.beginningToShift.companion" = "What was received is now being tended — drawn from gently.";
+"vigil.milestone.metabolicTransition.companion" = "This is often where choosing to remain becomes its own quiet practice.";
+"vigil.milestone.deeperRhythm.companion" = "Not only the body finds a rhythm — something quieter settles alongside it.";
+"vigil.milestone.extendedFast.companion" = "For thousands of years, fasting this long has been understood as a way of making room.";
+"vigil.milestone.prolongedFast.companion" = "Be attentive to how you feel — and to what else surfaces in the stillness.";
+
+/* Milestone Scripture fragments */
+"vigil.milestone.digestionCompleting.scripture" = "This is the day.";
+"vigil.milestone.digestionCompleting.citation" = "Psalm 118";
+"vigil.milestone.beginningToShift.scripture" = "I shall not want.";
+"vigil.milestone.beginningToShift.citation" = "Psalm 23";
+"vigil.milestone.metabolicTransition.scripture" = "When you pass through, I will be with you.";
+"vigil.milestone.metabolicTransition.citation" = "Isaiah 43";
+"vigil.milestone.deeperRhythm.scripture" = "Be still, and know.";
+"vigil.milestone.deeperRhythm.citation" = "Psalm 46";
+"vigil.milestone.extendedFast.scripture" = "Not by bread alone.";
+"vigil.milestone.extendedFast.citation" = "Matthew 4";
+"vigil.milestone.prolongedFast.scripture" = "Search me, and know my heart.";
+"vigil.milestone.prolongedFast.citation" = "Psalm 139";
+
+/* Idle daily fragments */
+"vigil.idle.0" = "The earth is full of your steadfast love.";
+"vigil.idle.0.citation" = "Psalm 119";
+"vigil.idle.1" = "Morning by morning, new mercies.";
+"vigil.idle.1.citation" = "Lamentations 3";
+"vigil.idle.2" = "The heavens declare.";
+"vigil.idle.2.citation" = "Psalm 19";
+"vigil.idle.3" = "He leads me beside still waters.";
+"vigil.idle.3.citation" = "Psalm 23";
+"vigil.idle.4" = "In him all things hold together.";
+"vigil.idle.4.citation" = "Colossians 1";
+"vigil.idle.5" = "Great is your faithfulness.";
+"vigil.idle.5.citation" = "Lamentations 3";
+"vigil.idle.6" = "Your hands have made and fashioned me.";
+"vigil.idle.6.citation" = "Psalm 119";
+"vigil.idle.7" = "Even the darkness is not dark to you.";
+"vigil.idle.7.citation" = "Psalm 139";
+"vigil.idle.8" = "In returning and rest you shall be saved.";
+"vigil.idle.8.citation" = "Isaiah 30";
+"vigil.idle.9" = "Consider the birds of the air.";
+"vigil.idle.9.citation" = "Matthew 6";
+
+/* Arrival rotation */
+"vigil.arrival.0" = "In every season, it yields its fruit.";
+"vigil.arrival.0.citation" = "Revelation 22";
+"vigil.arrival.1" = "What was begun in you is being carried to completion.";
+"vigil.arrival.1.citation" = "Philippians 1";
+"vigil.arrival.2" = "To everything, a season.";
+"vigil.arrival.2.citation" = "Ecclesiastes 3";
+"vigil.arrival.3" = "The Lord bless you, and keep you.";
+"vigil.arrival.3.citation" = "Numbers 6";
+"vigil.arrival.4" = "You prepare a table before me.";
+"vigil.arrival.4.citation" = "Psalm 23";
+
+/* Forest inscription */
+"vigil.forest.inscription" = "Consider how they grow.";
+"vigil.forest.inscription.citation" = "Luke 12";
+
+/* Accessibility */
+"vigil.a11y.scripture" = "Scripture: %@";
+"vigil.a11y.citation" = "From %@";

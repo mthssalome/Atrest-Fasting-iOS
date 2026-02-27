@@ -193,6 +193,7 @@ public struct RootView: View {
         forestViewModel.update(historyItems: history)
         let entries = CalendarPolicy.entries(for: state.sessions, entitlement: effectiveEntitlement)
         calendarViewModel.update(entries: entries)
+        timerViewModel.completedFastCount = state.completedCount
 
         if TrialPolicy.shouldShowTransitionMoment(completedCount: state.completedCount) && effectiveEntitlement != .premium {
             showTransitionMoment = true

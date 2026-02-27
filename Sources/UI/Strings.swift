@@ -102,6 +102,14 @@ public enum L10n {
     public static let navA11yCalendar = tr("nav.a11y.calendar", "Calendar nav a11y label")
     public static let navA11ySettings = tr("nav.a11y.settings", "Settings nav a11y label")
 
+    // MARK: - Vigil (Depth Layer)
+
+    public static let vigilSectionTitle = tr("vigil.section.title", "Vigil section header in settings")
+    public static let vigilSectionExplanation = tr("vigil.section.explanation", "Vigil toggle explanation")
+    public static let vigilFastStart = tr("vigil.fastStart", "Vigil: fast start companion line")
+    public static let vigilA11yScripture = tr("vigil.a11y.scripture", "Scripture accessibility format")
+    public static let vigilA11yCitation = tr("vigil.a11y.citation", "Citation accessibility format")
+
     // MARK: - Internal
 
     private static func tr(_ key: String, _ comment: String) -> String {

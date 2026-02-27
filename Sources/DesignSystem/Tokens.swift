@@ -32,6 +32,9 @@ public enum Palette {
 
     // Star
     public static let starLight = Color(hex: "#F0EDE6")
+    // Vigil — Scripture shares the star's visual register
+    public static let scriptureText = starLight.opacity(0.60)
+    public static let citationText  = starLight.opacity(0.40)
 }
 
 extension Color {
@@ -66,6 +69,10 @@ public enum Typography {
     public static let label = Font.system(.callout, design: .rounded).weight(.medium)
     public static let caption = Font.system(.caption, design: .rounded)
     public static let elapsed = Font.system(size: 48, weight: .light, design: .rounded)
+    // Vigil — inscription register (doctrine/08-depth-layer.md Visual Specification)
+    public static let scripture = Font.system(.callout, design: .serif).weight(.light)
+        .leading(.loose)
+    public static let citation  = Font.system(.caption2, design: .serif).weight(.light)
 }
 
 // MARK: - Spacing & Radii
@@ -98,5 +105,21 @@ public enum Motion {
     }
     public static var starAppear: Animation {
         UIAccessibility.isReduceMotionEnabled ? .none : .easeIn(duration: 1.2).delay(0.4)
+    }
+    // Vigil animations (doctrine/08-depth-layer.md Visual Specification)
+    public static var scriptureFadeIn: Animation {
+        UIAccessibility.isReduceMotionEnabled ? .none : .easeOut(duration: 0.6)
+    }
+    public static var scriptureFadeOut: Animation {
+        UIAccessibility.isReduceMotionEnabled ? .none : .easeIn(duration: 0.8)
+    }
+    public static var scriptureDelayed: Animation {
+        UIAccessibility.isReduceMotionEnabled ? .none : .easeOut(duration: 0.4).delay(0.4)
+    }
+    public static var citationReveal: Animation {
+        UIAccessibility.isReduceMotionEnabled ? .none : .easeOut(duration: 0.3)
+    }
+    public static var citationDismiss: Animation {
+        UIAccessibility.isReduceMotionEnabled ? .none : .easeIn(duration: 0.5)
     }
 }

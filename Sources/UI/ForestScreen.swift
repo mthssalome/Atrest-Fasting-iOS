@@ -6,6 +6,7 @@ public struct ForestScreen: View {
     @ObservedObject private var viewModel: ForestViewModel
     private let onBack: () -> Void
     @State private var scrollOffset: CGFloat = 0
+    @AppStorage("atrest.vigil.enabled") private var isVigilEnabled: Bool = false
 
     public init(viewModel: ForestViewModel, onBack: @escaping () -> Void) {
         self.viewModel = viewModel
@@ -44,6 +45,17 @@ public struct ForestScreen: View {
                     }
                     .coordinateSpace(name: "forestScroll")
                     .onPreferenceChange(ScrollOffsetKey.self) { scrollOffset = $0 }
+                }
+            }
+
+            if isVigilEnabled && !viewModel.treeLayouts.isEmpty {
+                VStack {
+                    Spacer()
+                    ScriptureFragmentView(
+                        text: VigilContentProvider.forestInscription.text,
+                        citation: VigilContentProvider.forestInscription.citation
+                    )
+                    .padding(.bottom, Spacing.xxl + Spacing.lg)
                 }
             }
 

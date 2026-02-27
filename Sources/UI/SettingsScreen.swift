@@ -84,6 +84,17 @@ public struct SettingsScreen: View {
                         }
                     }
 
+                    sectionCard(title: L10n.vigilSectionTitle) {
+                        VStack(alignment: .leading, spacing: Spacing.sm) {
+                            Toggle(isOn: $viewModel.isVigilEnabled) {
+                                Text(L10n.vigilSectionExplanation)
+                                    .font(Typography.caption)
+                                    .foregroundStyle(Palette.muted)
+                            }
+                            .tint(Palette.accent)
+                        }
+                    }
+
                     if entitlement != .premium {
                         sectionCard(title: L10n.settingsSectionPremium) {
                             VStack(alignment: .leading, spacing: Spacing.sm) {
