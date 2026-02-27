@@ -1,4 +1,5 @@
 import SwiftUI
+import Domain
 import DesignSystem
 
 public struct WaterInlineView: View {
