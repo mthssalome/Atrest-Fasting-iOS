@@ -38,7 +38,8 @@ public struct HistoryItem: Equatable {
     }
 }
 
-public struct CalendarEntry: Equatable {
+public struct CalendarEntry: Equatable, Identifiable {
+    public var id: UUID { sessionID }
     public let sessionID: UUID
     public let date: Date
     public let isInspectable: Bool
