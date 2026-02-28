@@ -92,12 +92,12 @@ public struct RootView: View {
         }
         .task { await loadPersistedState() }
         .onAppear { reconcileEntitlements() }
-        .onChange(of: scenePhase) { _, newPhase in
+        .onChange(of: scenePhase) { newPhase in
             if newPhase == .active {
                 reconcileEntitlements()
             }
         }
-        .onChange(of: paywallViewModel.entitlement) { _, snapshot in
+        .onChange(of: paywallViewModel.entitlement) { snapshot in
             Task {
                 if let sessionStore {
                     let state = await sessionStore.load()

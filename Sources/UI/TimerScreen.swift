@@ -10,6 +10,7 @@ public struct TimerScreen: View {
 
     @State private var showFastStartLine = false
     @State private var showArrivalScripture = false
+    @State private var previousStatus: FastingStatus = .idle
 
     public init(viewModel: TimerViewModel, waterViewModel: WaterViewModel, entitlement: Entitlement) {
         self.viewModel = viewModel
@@ -23,8 +24,8 @@ public struct TimerScreen: View {
             TimelineView(.periodic(from: .now, by: 1)) { context in
                 content
                     .onAppear { _ = viewModel.refresh() }
-                    .onChange(of: context.date) { _, _ in _ = viewModel.refresh() }
-                    .onChange(of: viewModel.status) { _, _ in _ = viewModel.refresh() }
+                    .onChange(of: context.date) { _ in _ = viewModel.refresh() }
+                    .onChange(of: viewModel.status) { _ in _ = viewModel.refresh() }
             }
 
             if showFastStartLine && isVigilEnabled {
@@ -36,7 +37,7 @@ public struct TimerScreen: View {
                     .padding(.horizontal, Spacing.xl)
             }
         }
-        .onChange(of: viewModel.isJustCompleted) { _, isComplete in
+        .onChange(of: viewModel.isJustCompleted) { isComplete in
             if isComplete {
                 if isVigilEnabled {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
@@ -49,13 +50,13 @@ public struct TimerScreen: View {
                         viewModel.isJustCompleted = false
                     }
                 }
-            }
-            if !isComplete {
+            } else {
                 showArrivalScripture = false
             }
         }
-        .onChange(of: viewModel.status) { oldStatus, newStatus in
-            if case .active = newStatus, case .idle = oldStatus {
+        .onChange(of: viewModel.status) { newStatus in
+            defer { previousStatus = newStatus }
+            if case .active = newStatus, case .idle = previousStatus {
                 if isVigilEnabled {
                     withAnimation(Motion.scriptureFadeIn) {
                         showFastStartLine = true
