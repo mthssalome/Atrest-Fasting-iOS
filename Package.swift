@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "AtrestFastingApp",
     platforms: [
-        .iOS(.v17)
+        .iOS(.v16)
     ],
     products: [
         .library(name: "Domain", targets: ["Domain"]),
@@ -38,10 +38,6 @@ let package = Package(
             name: "UI",
             dependencies: ["Domain", "Data", "DesignSystem", "Policy"],
             resources: [.process("Resources")]
-        ),
-        .executableTarget(
-            name: "App",
-            dependencies: ["UI", "Data", "Domain", "DesignSystem", "Policy"]
         ),
         .testTarget(
             name: "UnitTests",
