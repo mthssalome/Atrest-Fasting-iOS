@@ -55,6 +55,8 @@
    Forest Screen  (doctrine: 04-tree-forest, 06-apple-ux)
    ---------------------------------------------------------- */
 
+"forest.empty" = "Your forest begins with your first completed fast.";
+
 /* Accessibility labels — no visible titles on the forest canvas */
 "forest.a11y.tree.complete" = "A tree from a completed fast";
 "forest.a11y.tree.incomplete" = "A tree from an unfinished fast";

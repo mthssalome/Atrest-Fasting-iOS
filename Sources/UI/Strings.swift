@@ -25,6 +25,7 @@ public enum L10n {
 
     // MARK: - Forest Screen (accessibility only)
 
+    public static let forestEmpty = tr("forest.empty", "Empty forest placeholder")
     public static let forestA11yTreeComplete = tr("forest.a11y.tree.complete", "Complete tree a11y label")
     public static let forestA11yTreeIncomplete = tr("forest.a11y.tree.incomplete", "Incomplete tree a11y label")
     public static let forestA11yStar = tr("forest.a11y.star", "Star a11y label")
