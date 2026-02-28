@@ -31,12 +31,16 @@ struct AtrestApp: App {
         )
 
         let timerVM = TimerViewModel(sessionStore: sessionStore)
+        let waterStoreCopy = waterStore
+        let sessionStoreCopy = sessionStore
+        let entitlementServiceCopy = entitlementService
+        let purchaseClientCopy = purchaseClient
         _timerViewModel = StateObject(wrappedValue: timerVM)
         _forestViewModel = StateObject(wrappedValue: ForestViewModel(historyItems: []))
         _calendarViewModel = StateObject(wrappedValue: CalendarViewModel(entries: []))
-        _waterViewModel = StateObject(wrappedValue: WaterViewModel(store: waterStore))
-        _settingsViewModel = StateObject(wrappedValue: SettingsViewModel(sessionStore: sessionStore))
-        _paywallViewModel = StateObject(wrappedValue: PaywallViewModel(entitlementService: entitlementService, purchaseClient: purchaseClient))
+        _waterViewModel = StateObject(wrappedValue: WaterViewModel(store: waterStoreCopy))
+        _settingsViewModel = StateObject(wrappedValue: SettingsViewModel(sessionStore: sessionStoreCopy))
+        _paywallViewModel = StateObject(wrappedValue: PaywallViewModel(entitlementService: entitlementServiceCopy, purchaseClient: purchaseClientCopy))
     }
 
     var body: some Scene {
