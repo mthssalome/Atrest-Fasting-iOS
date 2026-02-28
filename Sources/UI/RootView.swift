@@ -71,7 +71,7 @@ public struct RootView: View {
         .animation(Motion.slow, value: destination)
         .sheet(isPresented: $showCalendarSheet) {
             CalendarScreen(viewModel: calendarViewModel)
-                .presentationBackground(.ultraThinMaterial)
+                .sheetBackground()
         }
         .sheet(isPresented: $showSettingsSheet) {
             SettingsScreen(
@@ -84,11 +84,11 @@ public struct RootView: View {
                     }
                 }
             )
-            .presentationBackground(.ultraThinMaterial)
+            .sheetBackground()
         }
         .sheet(isPresented: $showPaywallSheet) {
             PaywallScreen(viewModel: paywallViewModel)
-                .presentationBackground(.ultraThinMaterial)
+                .sheetBackground()
         }
         .task { await loadPersistedState() }
         .onAppear { reconcileEntitlements() }
@@ -205,4 +205,15 @@ public struct RootView: View {
 public enum AppDestination: Equatable {
     case timer
     case forest
+}
+
+private extension View {
+    @ViewBuilder
+    func sheetBackground() -> some View {
+        if #available(iOS 16.4, *) {
+            self.presentationBackground(.ultraThinMaterial)
+        } else {
+            self
+        }
+    }
 }
