@@ -5,9 +5,8 @@ import Domain
 import Policy
 import DesignSystem
 
-@main
 struct AtrestApp: App {
-    private let sessionStore = SessionStore()
+a    private let sessionStore = SessionStore()
     private let waterStore = WaterStore()
     private let entitlementService: EntitlementServicing
     private let purchaseClient: PurchaseClient

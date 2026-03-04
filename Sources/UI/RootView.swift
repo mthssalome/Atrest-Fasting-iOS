@@ -13,6 +13,7 @@ public struct RootView: View {
     @StateObject private var paywallViewModel: PaywallViewModel
     private let sessionStore: SessionStore?
     private let entitlementService: EntitlementServicing
+    
 
     @State private var destination: AppDestination = .timer
     @State private var currentEntitlement: Entitlement = .free
@@ -122,32 +123,16 @@ public struct RootView: View {
                 entitlement: currentEntitlement
             )
 
-            if case .active = timerViewModel.status {
+            switch timerViewModel.status {
+            case .active:
                 EscapeHatchOverlay(
                     entitlement: currentEntitlement,
                     onForest: { destination = .forest },
                     onCalendar: { showCalendarSheet = true },
                     onSettings: { showSettingsSheet = true }
                 )
-            }
 
-            if case .idle = timerViewModel.status {
-                FloatingNavIcons(
-                    entitlement: currentEntitlement,
-                    onForest: { destination = .forest },
-                    onCalendar: { showCalendarSheet = true },
-                    onSettings: { showSettingsSheet = true }
-                )
-            }
-            if case .completed = timerViewModel.status {
-                FloatingNavIcons(
-                    entitlement: currentEntitlement,
-                    onForest: { destination = .forest },
-                    onCalendar: { showCalendarSheet = true },
-                    onSettings: { showSettingsSheet = true }
-                )
-            }
-            if case .abandoned = timerViewModel.status {
+            case .idle, .completed, .abandoned:
                 FloatingNavIcons(
                     entitlement: currentEntitlement,
                     onForest: { destination = .forest },

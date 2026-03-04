@@ -21,12 +21,8 @@ public struct TimerScreen: View {
     public var body: some View {
         ZStack {
             DuskBackground().ignoresSafeArea()
-            TimelineView(.periodic(from: .now, by: 1)) { context in
-                content
-                    .onAppear { _ = viewModel.refresh() }
-                    .onChange(of: context.date) { _ in _ = viewModel.refresh() }
-                    .onChange(of: viewModel.status) { _ in _ = viewModel.refresh() }
-            }
+
+            content
 
             if showFastStartLine && isVigilEnabled {
                 Text(VigilContentProvider.fastStartLine)
@@ -36,6 +32,12 @@ public struct TimerScreen: View {
                     .transition(.opacity)
                     .padding(.horizontal, Spacing.xl)
             }
+        }
+        .onAppear {
+            viewModel.refresh()
+        }
+        .onChange(of: viewModel.status) { _ in
+            viewModel.refresh()
         }
         .onChange(of: viewModel.isJustCompleted) { isComplete in
             if isComplete {
@@ -54,6 +56,8 @@ public struct TimerScreen: View {
                 showArrivalScripture = false
             }
         }
+      
+
         .onChange(of: viewModel.status) { newStatus in
             defer { previousStatus = newStatus }
             if case .active = newStatus, case .idle = previousStatus {
@@ -76,7 +80,8 @@ public struct TimerScreen: View {
 
     private var content: some View {
         ZStack {
-            if case .active = viewModel.status, entitlement != .free {
+                       
+            if case .active = viewModel.status, entitlement != .free  {
                 TreeMaterializationView(
                     variantIndex: viewModel.activeTreeVariantIndex,
                     toneIndex: viewModel.activeTreeToneIndex,

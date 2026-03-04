@@ -23,7 +23,7 @@ public struct TreeMaterializationView: View {
                 TreeView(
                     variantIndex: variantIndex,
                     toneIndex: toneIndex,
-                    progress: progress,
+                    progress: 1.0,
                     isIncomplete: false,
                     size: treeSize
                 )
@@ -39,6 +39,7 @@ public struct TreeMaterializationView: View {
                         .transition(.opacity.animation(Motion.starAppear))
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .allowsHitTesting(false)
     }
