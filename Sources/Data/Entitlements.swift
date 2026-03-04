@@ -178,6 +178,7 @@ public protocol EntitlementServicing {
     func reconcile() async -> EntitlementSnapshot
     func purchase(product: PurchaseProduct) async -> EntitlementSnapshot
     func restore() async -> EntitlementSnapshot
+    func setCompletedCountProvider(_ provider: @escaping () async -> Int)
 }
 
 public final actor EntitlementService: EntitlementServicing {
@@ -185,7 +186,7 @@ public final actor EntitlementService: EntitlementServicing {
     private let purchaseClient: PurchaseClient
     private let productIDs = PurchaseProduct.allCases.map { $0.rawValue }
     private let clock: () -> Date
-    private let completedCount: () async -> Int
+    private var completedCount: () async -> Int
 
     public init(store: EntitlementStore = EntitlementStore(),
                 purchaseClient: PurchaseClient,
@@ -195,6 +196,10 @@ public final actor EntitlementService: EntitlementServicing {
         self.purchaseClient = purchaseClient
         self.clock = clock
         self.completedCount = completedCount
+    }
+
+    public func setCompletedCountProvider(_ provider: @escaping () async -> Int) {
+        self.completedCount = provider
     }
 
     public func current() async -> EntitlementSnapshot {

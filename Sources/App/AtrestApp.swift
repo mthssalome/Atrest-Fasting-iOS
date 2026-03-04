@@ -24,10 +24,7 @@ struct AtrestApp: App {
         self.entitlementService = EntitlementService(
             store: EntitlementStore(),
             purchaseClient: purchaseClient,
-            completedCount: { [sessionStore] in
-                let state = await sessionStore.load()
-                return state.completedCount
-            }
+            completedCount: { 0 }
         )
 
         let timerVM = TimerViewModel(sessionStore: sessionStore)

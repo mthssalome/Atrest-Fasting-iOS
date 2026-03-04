@@ -112,6 +112,12 @@ public struct RootView: View {
                 }
             }
         }
+        .task {
+            await entitlementService.setCompletedCountProvider { [sessionStore] in
+                let state = await sessionStore.load()
+                return state.completedCount
+            }
+        }
     }
 
     @ViewBuilder
